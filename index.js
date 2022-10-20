@@ -47,11 +47,11 @@ try {
   const commitsCount = +json.commits;
 
   if (commitsCount > 1) {
-    console.log("Too many commits");
     throw `Pull request needs to be squashed : ${commitsCount} commits found.`;
   } else {
     console.log("PR commits squashed.");
   }
 } catch (error) {
+  console.log("ERROR", error);
   core.setFailed(error.message);
 }
