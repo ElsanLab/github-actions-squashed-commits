@@ -57,7 +57,7 @@ try {
 
   const commitsCount = +json.commits;
 
-  if (commistCount > 1) {
+  if (commitsCount > 1) {
     throw `Pull request needs to be squashed : ${commitsCount} commits found.`;
   }
 } catch (error) {
