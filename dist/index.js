@@ -51,13 +51,15 @@ try {
     throw e;
   });
 
-  console.log("RESPONSE", response);
-
   const json = await response.json().catch((e) => {
     throw "Response parsing error";
   });
 
-  console.log("JSON", json);
+  const commitsCount = +json.commits;
+
+  if (commistCount > 1) {
+    throw `Pull request needs to be squashed : ${commitsCount} commits found.`;
+  }
 } catch (error) {
   _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(error.message);
 }
