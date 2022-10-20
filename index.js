@@ -5,21 +5,21 @@ try {
   const token = core.getInput("token");
 
   if (!token) {
-    core.setFailed("NO TOKEN GIVEN");
+    throw "NO TOKEN GIVEN";
   }
 
   const repo = process.env.GITHUB_REPOSITORY;
 
   const pullRequestNumber = +process.env.GITHUB_REF_NAME.split("/")[0];
   if (!pullRequestNumber) {
-    core.setFailed("UNABLE TO GET PR NUMBER");
+    throw "UNABLE TO GET PR NUMBER";
   }
 
   if (
     process.env.GITHUB_REF_TYPE !== "branch" ||
     process.env.GITHUB_EVENT_NAME !== "pull_request"
   ) {
-    core.setFailed("THIS ACTION CAN ONLY BE TRIGGERED ON A PULL REQUEST");
+    throw "THIS ACTION CAN ONLY BE TRIGGERED ON A PULL REQUEST";
   }
 
   const headers = new Headers({
@@ -31,12 +31,20 @@ try {
     headers: headers,
   };
 
-  fetch(
+  const response = await fetch(
     `https://api.github.com/repos/${repo}/pulls/${pullRequestNumber}`,
     opts
-  ).then((response) => {
-    console.log("RESPONSE", response);
+  ).catch((e) => {
+    throw e;
   });
+
+  console.log("RESPONSE", response);
+
+  const json = await response.json().catch((e) => {
+    throw "Response parsing error";
+  });
+
+  console.log("JSON", json);
 } catch (error) {
   core.setFailed(error.message);
 }

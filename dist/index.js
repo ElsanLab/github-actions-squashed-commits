@@ -1,6 +1,72 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 3371:
+/***/ ((module, __webpack_exports__, __nccwpck_require__) => {
+
+"use strict";
+__nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__) => {
+__nccwpck_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(5707);
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var node_fetch__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(9687);
+/* harmony import */ var node_fetch__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(1499);
+
+
+
+try {
+  const token = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput("token");
+
+  if (!token) {
+    throw "NO TOKEN GIVEN";
+  }
+
+  const repo = process.env.GITHUB_REPOSITORY;
+
+  const pullRequestNumber = +process.env.GITHUB_REF_NAME.split("/")[0];
+  if (!pullRequestNumber) {
+    throw "UNABLE TO GET PR NUMBER";
+  }
+
+  if (
+    process.env.GITHUB_REF_TYPE !== "branch" ||
+    process.env.GITHUB_EVENT_NAME !== "pull_request"
+  ) {
+    throw "THIS ACTION CAN ONLY BE TRIGGERED ON A PULL REQUEST";
+  }
+
+  const headers = new node_fetch__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z({
+    Accept: "application/vnd.github+json",
+    Authorization: `token ${token}`,
+  });
+  const opts = {
+    method: "GET",
+    headers: headers,
+  };
+
+  const response = await (0,node_fetch__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .ZP)(
+    `https://api.github.com/repos/${repo}/pulls/${pullRequestNumber}`,
+    opts
+  ).catch((e) => {
+    throw e;
+  });
+
+  console.log("RESPONSE", response);
+
+  const json = await response.json().catch((e) => {
+    throw "Response parsing error";
+  });
+
+  console.log("JSON", json);
+} catch (error) {
+  _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(error.message);
+}
+
+__webpack_handle_async_dependencies__();
+}, 1);
+
+/***/ }),
+
 /***/ 1995:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -6994,6 +7060,14 @@ module.exports = require("net");
 
 /***/ }),
 
+/***/ 8849:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:http");
+
+/***/ }),
+
 /***/ 7742:
 /***/ ((module) => {
 
@@ -7007,6 +7081,14 @@ module.exports = require("node:process");
 
 "use strict";
 module.exports = require("node:stream/web");
+
+/***/ }),
+
+/***/ 7261:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:util");
 
 /***/ }),
 
@@ -7613,756 +7695,18 @@ c.push(`--${b}--`)
 return new B(c,{type:"multipart/form-data; boundary="+b})}
 
 
-/***/ })
+/***/ }),
 
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __nccwpck_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		var threw = true;
-/******/ 		try {
-/******/ 			__webpack_modules__[moduleId].call(module.exports, module, module.exports, __nccwpck_require__);
-/******/ 			threw = false;
-/******/ 		} finally {
-/******/ 			if(threw) delete __webpack_module_cache__[moduleId];
-/******/ 		}
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__nccwpck_require__.m = __webpack_modules__;
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__nccwpck_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/ensure chunk */
-/******/ 	(() => {
-/******/ 		__nccwpck_require__.f = {};
-/******/ 		// This file contains only the entry chunk.
-/******/ 		// The chunk loading function for additional chunks
-/******/ 		__nccwpck_require__.e = (chunkId) => {
-/******/ 			return Promise.all(Object.keys(__nccwpck_require__.f).reduce((promises, key) => {
-/******/ 				__nccwpck_require__.f[key](chunkId, promises);
-/******/ 				return promises;
-/******/ 			}, []));
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/get javascript chunk filename */
-/******/ 	(() => {
-/******/ 		// This function allow to reference async chunks
-/******/ 		__nccwpck_require__.u = (chunkId) => {
-/******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + ".index.js";
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__nccwpck_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/compat */
-/******/ 	
-/******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
-/******/ 	
-/******/ 	/* webpack/runtime/require chunk loading */
-/******/ 	(() => {
-/******/ 		// no baseURI
-/******/ 		
-/******/ 		// object to store loaded chunks
-/******/ 		// "1" means "loaded", otherwise not loaded yet
-/******/ 		var installedChunks = {
-/******/ 			179: 1
-/******/ 		};
-/******/ 		
-/******/ 		// no on chunks loaded
-/******/ 		
-/******/ 		var installChunk = (chunk) => {
-/******/ 			var moreModules = chunk.modules, chunkIds = chunk.ids, runtime = chunk.runtime;
-/******/ 			for(var moduleId in moreModules) {
-/******/ 				if(__nccwpck_require__.o(moreModules, moduleId)) {
-/******/ 					__nccwpck_require__.m[moduleId] = moreModules[moduleId];
-/******/ 				}
-/******/ 			}
-/******/ 			if(runtime) runtime(__nccwpck_require__);
-/******/ 			for(var i = 0; i < chunkIds.length; i++)
-/******/ 				installedChunks[chunkIds[i]] = 1;
-/******/ 		
-/******/ 		};
-/******/ 		
-/******/ 		// require() chunk loading for javascript
-/******/ 		__nccwpck_require__.f.require = (chunkId, promises) => {
-/******/ 			// "1" is the signal for "already loaded"
-/******/ 			if(!installedChunks[chunkId]) {
-/******/ 				if(true) { // all chunks have JS
-/******/ 					installChunk(require("./" + __nccwpck_require__.u(chunkId)));
-/******/ 				} else installedChunks[chunkId] = 1;
-/******/ 			}
-/******/ 		};
-/******/ 		
-/******/ 		// no external install chunk
-/******/ 		
-/******/ 		// no HMR
-/******/ 		
-/******/ 		// no HMR manifest
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
+/***/ 9687:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
+
 "use strict";
-// ESM COMPAT FLAG
-__nccwpck_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
-var core = __nccwpck_require__(5707);
-;// CONCATENATED MODULE: external "node:http"
-const external_node_http_namespaceObject = require("node:http");
-;// CONCATENATED MODULE: external "node:https"
-const external_node_https_namespaceObject = require("node:https");
-;// CONCATENATED MODULE: external "node:zlib"
-const external_node_zlib_namespaceObject = require("node:zlib");
-;// CONCATENATED MODULE: external "node:stream"
-const external_node_stream_namespaceObject = require("node:stream");
-;// CONCATENATED MODULE: external "node:buffer"
-const external_node_buffer_namespaceObject = require("node:buffer");
-;// CONCATENATED MODULE: ./node_modules/data-uri-to-buffer/dist/index.js
-/**
- * Returns a `Buffer` instance from the given data URI `uri`.
- *
- * @param {String} uri Data URI to turn into a Buffer instance
- * @returns {Buffer} Buffer instance from Data URI
- * @api public
- */
-function dataUriToBuffer(uri) {
-    if (!/^data:/i.test(uri)) {
-        throw new TypeError('`uri` does not appear to be a Data URI (must begin with "data:")');
-    }
-    // strip newlines
-    uri = uri.replace(/\r?\n/g, '');
-    // split the URI up into the "metadata" and the "data" portions
-    const firstComma = uri.indexOf(',');
-    if (firstComma === -1 || firstComma <= 4) {
-        throw new TypeError('malformed data: URI');
-    }
-    // remove the "data:" scheme and parse the metadata
-    const meta = uri.substring(5, firstComma).split(';');
-    let charset = '';
-    let base64 = false;
-    const type = meta[0] || 'text/plain';
-    let typeFull = type;
-    for (let i = 1; i < meta.length; i++) {
-        if (meta[i] === 'base64') {
-            base64 = true;
-        }
-        else {
-            typeFull += `;${meta[i]}`;
-            if (meta[i].indexOf('charset=') === 0) {
-                charset = meta[i].substring(8);
-            }
-        }
-    }
-    // defaults to US-ASCII only if type is not provided
-    if (!meta[0] && !charset.length) {
-        typeFull += ';charset=US-ASCII';
-        charset = 'US-ASCII';
-    }
-    // get the encoded data portion and decode URI-encoded chars
-    const encoding = base64 ? 'base64' : 'ascii';
-    const data = unescape(uri.substring(firstComma + 1));
-    const buffer = Buffer.from(data, encoding);
-    // set `.type` and `.typeFull` properties to MIME type
-    buffer.type = type;
-    buffer.typeFull = typeFull;
-    // set the `.charset` property
-    buffer.charset = charset;
-    return buffer;
-}
-/* harmony default export */ const dist = (dataUriToBuffer);
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: external "node:util"
-const external_node_util_namespaceObject = require("node:util");
-// EXTERNAL MODULE: ./node_modules/fetch-blob/index.js
-var fetch_blob = __nccwpck_require__(2070);
-// EXTERNAL MODULE: ./node_modules/formdata-polyfill/esm.min.js
-var esm_min = __nccwpck_require__(6794);
-;// CONCATENATED MODULE: ./node_modules/node-fetch/src/errors/base.js
-class FetchBaseError extends Error {
-	constructor(message, type) {
-		super(message);
-		// Hide custom error implementation details from end-users
-		Error.captureStackTrace(this, this.constructor);
-
-		this.type = type;
-	}
-
-	get name() {
-		return this.constructor.name;
-	}
-
-	get [Symbol.toStringTag]() {
-		return this.constructor.name;
-	}
-}
-
-;// CONCATENATED MODULE: ./node_modules/node-fetch/src/errors/fetch-error.js
-
-
-
-/**
- * @typedef {{ address?: string, code: string, dest?: string, errno: number, info?: object, message: string, path?: string, port?: number, syscall: string}} SystemError
-*/
-
-/**
- * FetchError interface for operational errors
- */
-class FetchError extends FetchBaseError {
-	/**
-	 * @param  {string} message -      Error message for human
-	 * @param  {string} [type] -        Error type for machine
-	 * @param  {SystemError} [systemError] - For Node.js system error
-	 */
-	constructor(message, type, systemError) {
-		super(message, type);
-		// When err.type is `system`, err.erroredSysCall contains system error and err.code contains system error code
-		if (systemError) {
-			// eslint-disable-next-line no-multi-assign
-			this.code = this.errno = systemError.code;
-			this.erroredSysCall = systemError.syscall;
-		}
-	}
-}
-
-;// CONCATENATED MODULE: ./node_modules/node-fetch/src/utils/is.js
-/**
- * Is.js
- *
- * Object type checks.
- */
-
-const NAME = Symbol.toStringTag;
-
-/**
- * Check if `obj` is a URLSearchParams object
- * ref: https://github.com/node-fetch/node-fetch/issues/296#issuecomment-307598143
- * @param {*} object - Object to check for
- * @return {boolean}
- */
-const isURLSearchParameters = object => {
-	return (
-		typeof object === 'object' &&
-		typeof object.append === 'function' &&
-		typeof object.delete === 'function' &&
-		typeof object.get === 'function' &&
-		typeof object.getAll === 'function' &&
-		typeof object.has === 'function' &&
-		typeof object.set === 'function' &&
-		typeof object.sort === 'function' &&
-		object[NAME] === 'URLSearchParams'
-	);
-};
-
-/**
- * Check if `object` is a W3C `Blob` object (which `File` inherits from)
- * @param {*} object - Object to check for
- * @return {boolean}
- */
-const isBlob = object => {
-	return (
-		object &&
-		typeof object === 'object' &&
-		typeof object.arrayBuffer === 'function' &&
-		typeof object.type === 'string' &&
-		typeof object.stream === 'function' &&
-		typeof object.constructor === 'function' &&
-		/^(Blob|File)$/.test(object[NAME])
-	);
-};
-
-/**
- * Check if `obj` is an instance of AbortSignal.
- * @param {*} object - Object to check for
- * @return {boolean}
- */
-const isAbortSignal = object => {
-	return (
-		typeof object === 'object' && (
-			object[NAME] === 'AbortSignal' ||
-			object[NAME] === 'EventTarget'
-		)
-	);
-};
-
-/**
- * isDomainOrSubdomain reports whether sub is a subdomain (or exact match) of
- * the parent domain.
- *
- * Both domains must already be in canonical form.
- * @param {string|URL} original
- * @param {string|URL} destination
- */
-const isDomainOrSubdomain = (destination, original) => {
-	const orig = new URL(original).hostname;
-	const dest = new URL(destination).hostname;
-
-	return orig === dest || orig.endsWith(`.${dest}`);
-};
-
-/**
- * isSameProtocol reports whether the two provided URLs use the same protocol.
- *
- * Both domains must already be in canonical form.
- * @param {string|URL} original
- * @param {string|URL} destination
- */
-const isSameProtocol = (destination, original) => {
-	const orig = new URL(original).protocol;
-	const dest = new URL(destination).protocol;
-
-	return orig === dest;
-};
-
-;// CONCATENATED MODULE: ./node_modules/node-fetch/src/body.js
-
-/**
- * Body.js
- *
- * Body interface provides common methods for Request and Response
- */
-
-
-
-
-
-
-
-
-
-
-
-
-const pipeline = (0,external_node_util_namespaceObject.promisify)(external_node_stream_namespaceObject.pipeline);
-const INTERNALS = Symbol('Body internals');
-
-/**
- * Body mixin
- *
- * Ref: https://fetch.spec.whatwg.org/#body
- *
- * @param   Stream  body  Readable stream
- * @param   Object  opts  Response options
- * @return  Void
- */
-class Body {
-	constructor(body, {
-		size = 0
-	} = {}) {
-		let boundary = null;
-
-		if (body === null) {
-			// Body is undefined or null
-			body = null;
-		} else if (isURLSearchParameters(body)) {
-			// Body is a URLSearchParams
-			body = external_node_buffer_namespaceObject.Buffer.from(body.toString());
-		} else if (isBlob(body)) {
-			// Body is blob
-		} else if (external_node_buffer_namespaceObject.Buffer.isBuffer(body)) {
-			// Body is Buffer
-		} else if (external_node_util_namespaceObject.types.isAnyArrayBuffer(body)) {
-			// Body is ArrayBuffer
-			body = external_node_buffer_namespaceObject.Buffer.from(body);
-		} else if (ArrayBuffer.isView(body)) {
-			// Body is ArrayBufferView
-			body = external_node_buffer_namespaceObject.Buffer.from(body.buffer, body.byteOffset, body.byteLength);
-		} else if (body instanceof external_node_stream_namespaceObject) {
-			// Body is stream
-		} else if (body instanceof esm_min/* FormData */.Ct) {
-			// Body is FormData
-			body = (0,esm_min/* formDataToBlob */.au)(body);
-			boundary = body.type.split('=')[1];
-		} else {
-			// None of the above
-			// coerce to string then buffer
-			body = external_node_buffer_namespaceObject.Buffer.from(String(body));
-		}
-
-		let stream = body;
-
-		if (external_node_buffer_namespaceObject.Buffer.isBuffer(body)) {
-			stream = external_node_stream_namespaceObject.Readable.from(body);
-		} else if (isBlob(body)) {
-			stream = external_node_stream_namespaceObject.Readable.from(body.stream());
-		}
-
-		this[INTERNALS] = {
-			body,
-			stream,
-			boundary,
-			disturbed: false,
-			error: null
-		};
-		this.size = size;
-
-		if (body instanceof external_node_stream_namespaceObject) {
-			body.on('error', error_ => {
-				const error = error_ instanceof FetchBaseError ?
-					error_ :
-					new FetchError(`Invalid response body while trying to fetch ${this.url}: ${error_.message}`, 'system', error_);
-				this[INTERNALS].error = error;
-			});
-		}
-	}
-
-	get body() {
-		return this[INTERNALS].stream;
-	}
-
-	get bodyUsed() {
-		return this[INTERNALS].disturbed;
-	}
-
-	/**
-	 * Decode response as ArrayBuffer
-	 *
-	 * @return  Promise
-	 */
-	async arrayBuffer() {
-		const {buffer, byteOffset, byteLength} = await consumeBody(this);
-		return buffer.slice(byteOffset, byteOffset + byteLength);
-	}
-
-	async formData() {
-		const ct = this.headers.get('content-type');
-
-		if (ct.startsWith('application/x-www-form-urlencoded')) {
-			const formData = new esm_min/* FormData */.Ct();
-			const parameters = new URLSearchParams(await this.text());
-
-			for (const [name, value] of parameters) {
-				formData.append(name, value);
-			}
-
-			return formData;
-		}
-
-		const {toFormData} = await __nccwpck_require__.e(/* import() */ 680).then(__nccwpck_require__.bind(__nccwpck_require__, 7680));
-		return toFormData(this.body, ct);
-	}
-
-	/**
-	 * Return raw response as Blob
-	 *
-	 * @return Promise
-	 */
-	async blob() {
-		const ct = (this.headers && this.headers.get('content-type')) || (this[INTERNALS].body && this[INTERNALS].body.type) || '';
-		const buf = await this.arrayBuffer();
-
-		return new fetch_blob/* default */.Z([buf], {
-			type: ct
-		});
-	}
-
-	/**
-	 * Decode response as json
-	 *
-	 * @return  Promise
-	 */
-	async json() {
-		const text = await this.text();
-		return JSON.parse(text);
-	}
-
-	/**
-	 * Decode response as text
-	 *
-	 * @return  Promise
-	 */
-	async text() {
-		const buffer = await consumeBody(this);
-		return new TextDecoder().decode(buffer);
-	}
-
-	/**
-	 * Decode response as buffer (non-spec api)
-	 *
-	 * @return  Promise
-	 */
-	buffer() {
-		return consumeBody(this);
-	}
-}
-
-Body.prototype.buffer = (0,external_node_util_namespaceObject.deprecate)(Body.prototype.buffer, 'Please use \'response.arrayBuffer()\' instead of \'response.buffer()\'', 'node-fetch#buffer');
-
-// In browsers, all properties are enumerable.
-Object.defineProperties(Body.prototype, {
-	body: {enumerable: true},
-	bodyUsed: {enumerable: true},
-	arrayBuffer: {enumerable: true},
-	blob: {enumerable: true},
-	json: {enumerable: true},
-	text: {enumerable: true},
-	data: {get: (0,external_node_util_namespaceObject.deprecate)(() => {},
-		'data doesn\'t exist, use json(), text(), arrayBuffer(), or body instead',
-		'https://github.com/node-fetch/node-fetch/issues/1000 (response)')}
-});
-
-/**
- * Consume and convert an entire Body to a Buffer.
- *
- * Ref: https://fetch.spec.whatwg.org/#concept-body-consume-body
- *
- * @return Promise
- */
-async function consumeBody(data) {
-	if (data[INTERNALS].disturbed) {
-		throw new TypeError(`body used already for: ${data.url}`);
-	}
-
-	data[INTERNALS].disturbed = true;
-
-	if (data[INTERNALS].error) {
-		throw data[INTERNALS].error;
-	}
-
-	const {body} = data;
-
-	// Body is null
-	if (body === null) {
-		return external_node_buffer_namespaceObject.Buffer.alloc(0);
-	}
-
-	/* c8 ignore next 3 */
-	if (!(body instanceof external_node_stream_namespaceObject)) {
-		return external_node_buffer_namespaceObject.Buffer.alloc(0);
-	}
-
-	// Body is stream
-	// get ready to actually consume the body
-	const accum = [];
-	let accumBytes = 0;
-
-	try {
-		for await (const chunk of body) {
-			if (data.size > 0 && accumBytes + chunk.length > data.size) {
-				const error = new FetchError(`content size at ${data.url} over limit: ${data.size}`, 'max-size');
-				body.destroy(error);
-				throw error;
-			}
-
-			accumBytes += chunk.length;
-			accum.push(chunk);
-		}
-	} catch (error) {
-		const error_ = error instanceof FetchBaseError ? error : new FetchError(`Invalid response body while trying to fetch ${data.url}: ${error.message}`, 'system', error);
-		throw error_;
-	}
-
-	if (body.readableEnded === true || body._readableState.ended === true) {
-		try {
-			if (accum.every(c => typeof c === 'string')) {
-				return external_node_buffer_namespaceObject.Buffer.from(accum.join(''));
-			}
-
-			return external_node_buffer_namespaceObject.Buffer.concat(accum, accumBytes);
-		} catch (error) {
-			throw new FetchError(`Could not create Buffer from response body for ${data.url}: ${error.message}`, 'system', error);
-		}
-	} else {
-		throw new FetchError(`Premature close of server response while trying to fetch ${data.url}`);
-	}
-}
-
-/**
- * Clone body given Res/Req instance
- *
- * @param   Mixed   instance       Response or Request instance
- * @param   String  highWaterMark  highWaterMark for both PassThrough body streams
- * @return  Mixed
- */
-const clone = (instance, highWaterMark) => {
-	let p1;
-	let p2;
-	let {body} = instance[INTERNALS];
-
-	// Don't allow cloning a used body
-	if (instance.bodyUsed) {
-		throw new Error('cannot clone body after it is used');
-	}
-
-	// Check that body is a stream and not form-data object
-	// note: we can't clone the form-data object without having it as a dependency
-	if ((body instanceof external_node_stream_namespaceObject) && (typeof body.getBoundary !== 'function')) {
-		// Tee instance body
-		p1 = new external_node_stream_namespaceObject.PassThrough({highWaterMark});
-		p2 = new external_node_stream_namespaceObject.PassThrough({highWaterMark});
-		body.pipe(p1);
-		body.pipe(p2);
-		// Set instance body to teed body and return the other teed body
-		instance[INTERNALS].stream = p1;
-		body = p2;
-	}
-
-	return body;
-};
-
-const getNonSpecFormDataBoundary = (0,external_node_util_namespaceObject.deprecate)(
-	body => body.getBoundary(),
-	'form-data doesn\'t follow the spec and requires special treatment. Use alternative package',
-	'https://github.com/node-fetch/node-fetch/issues/1167'
-);
-
-/**
- * Performs the operation "extract a `Content-Type` value from |object|" as
- * specified in the specification:
- * https://fetch.spec.whatwg.org/#concept-bodyinit-extract
- *
- * This function assumes that instance.body is present.
- *
- * @param {any} body Any options.body input
- * @returns {string | null}
- */
-const extractContentType = (body, request) => {
-	// Body is null or undefined
-	if (body === null) {
-		return null;
-	}
-
-	// Body is string
-	if (typeof body === 'string') {
-		return 'text/plain;charset=UTF-8';
-	}
-
-	// Body is a URLSearchParams
-	if (isURLSearchParameters(body)) {
-		return 'application/x-www-form-urlencoded;charset=UTF-8';
-	}
-
-	// Body is blob
-	if (isBlob(body)) {
-		return body.type || null;
-	}
-
-	// Body is a Buffer (Buffer, ArrayBuffer or ArrayBufferView)
-	if (external_node_buffer_namespaceObject.Buffer.isBuffer(body) || external_node_util_namespaceObject.types.isAnyArrayBuffer(body) || ArrayBuffer.isView(body)) {
-		return null;
-	}
-
-	if (body instanceof esm_min/* FormData */.Ct) {
-		return `multipart/form-data; boundary=${request[INTERNALS].boundary}`;
-	}
-
-	// Detect form data input from form-data module
-	if (body && typeof body.getBoundary === 'function') {
-		return `multipart/form-data;boundary=${getNonSpecFormDataBoundary(body)}`;
-	}
-
-	// Body is stream - can't really do much about this
-	if (body instanceof external_node_stream_namespaceObject) {
-		return null;
-	}
-
-	// Body constructor defaults other things to string
-	return 'text/plain;charset=UTF-8';
-};
-
-/**
- * The Fetch Standard treats this as if "total bytes" is a property on the body.
- * For us, we have to explicitly get it with a function.
- *
- * ref: https://fetch.spec.whatwg.org/#concept-body-total-bytes
- *
- * @param {any} obj.body Body object from the Body instance.
- * @returns {number | null}
- */
-const getTotalBytes = request => {
-	const {body} = request[INTERNALS];
-
-	// Body is null or undefined
-	if (body === null) {
-		return 0;
-	}
-
-	// Body is Blob
-	if (isBlob(body)) {
-		return body.size;
-	}
-
-	// Body is Buffer
-	if (external_node_buffer_namespaceObject.Buffer.isBuffer(body)) {
-		return body.length;
-	}
-
-	// Detect form data input from form-data module
-	if (body && typeof body.getLengthSync === 'function') {
-		return body.hasKnownLength && body.hasKnownLength() ? body.getLengthSync() : null;
-	}
-
-	// Body is stream
-	return null;
-};
-
-/**
- * Write a Body to a Node.js WritableStream (e.g. http.Request) object.
- *
- * @param {Stream.Writable} dest The stream to write to.
- * @param obj.body Body object from the Body instance.
- * @returns {Promise<void>}
- */
-const writeToStream = async (dest, {body}) => {
-	if (body === null) {
-		// Body is null
-		dest.end();
-	} else {
-		// Body is stream
-		await pipeline(body, dest);
-	}
-};
-
-;// CONCATENATED MODULE: ./node_modules/node-fetch/src/headers.js
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (/* binding */ Headers),
+/* harmony export */   "x": () => (/* binding */ fromRawHeaders)
+/* harmony export */ });
+/* harmony import */ var node_util__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(7261);
+/* harmony import */ var node_http__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(8849);
 /**
  * Headers.js
  *
@@ -8373,8 +7717,8 @@ const writeToStream = async (dest, {body}) => {
 
 
 /* c8 ignore next 9 */
-const validateHeaderName = typeof external_node_http_namespaceObject.validateHeaderName === 'function' ?
-	external_node_http_namespaceObject.validateHeaderName :
+const validateHeaderName = typeof node_http__WEBPACK_IMPORTED_MODULE_1__.validateHeaderName === 'function' ?
+	node_http__WEBPACK_IMPORTED_MODULE_1__.validateHeaderName :
 	name => {
 		if (!/^[\^`\-\w!#$%&'*+.|~]+$/.test(name)) {
 			const error = new TypeError(`Header name must be a valid HTTP token [${name}]`);
@@ -8384,8 +7728,8 @@ const validateHeaderName = typeof external_node_http_namespaceObject.validateHea
 	};
 
 /* c8 ignore next 9 */
-const validateHeaderValue = typeof external_node_http_namespaceObject.validateHeaderValue === 'function' ?
-	external_node_http_namespaceObject.validateHeaderValue :
+const validateHeaderValue = typeof node_http__WEBPACK_IMPORTED_MODULE_1__.validateHeaderValue === 'function' ?
+	node_http__WEBPACK_IMPORTED_MODULE_1__.validateHeaderValue :
 	(name, value) => {
 		if (/[^\t\u0020-\u007E\u0080-\u00FF]/.test(value)) {
 			const error = new TypeError(`Invalid character in header content ["${name}"]`);
@@ -8424,7 +7768,7 @@ class Headers extends URLSearchParams {
 			}
 		} else if (init == null) { // eslint-disable-line no-eq-null, eqeqeq
 			// No op
-		} else if (typeof init === 'object' && !external_node_util_namespaceObject.types.isBoxedPrimitive(init)) {
+		} else if (typeof init === 'object' && !node_util__WEBPACK_IMPORTED_MODULE_0__.types.isBoxedPrimitive(init)) {
 			const method = init[Symbol.iterator];
 			// eslint-disable-next-line no-eq-null, eqeqeq
 			if (method == null) {
@@ -8440,7 +7784,7 @@ class Headers extends URLSearchParams {
 				result = [...init]
 					.map(pair => {
 						if (
-							typeof pair !== 'object' || external_node_util_namespaceObject.types.isBoxedPrimitive(pair)
+							typeof pair !== 'object' || node_util__WEBPACK_IMPORTED_MODULE_0__.types.isBoxedPrimitive(pair)
 						) {
 							throw new TypeError('Each header pair must be an iterable object');
 						}
@@ -8631,6 +7975,628 @@ function fromRawHeaders(headers = []) {
 	);
 }
 
+
+/***/ }),
+
+/***/ 1499:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
+
+"use strict";
+
+// EXPORTS
+__nccwpck_require__.d(__webpack_exports__, {
+  "ZP": () => (/* binding */ fetch)
+});
+
+// UNUSED EXPORTS: AbortError, Blob, FetchError, File, FormData, Headers, Request, Response, blobFrom, blobFromSync, fileFrom, fileFromSync, isRedirect
+
+// EXTERNAL MODULE: external "node:http"
+var external_node_http_ = __nccwpck_require__(8849);
+;// CONCATENATED MODULE: external "node:https"
+const external_node_https_namespaceObject = require("node:https");
+;// CONCATENATED MODULE: external "node:zlib"
+const external_node_zlib_namespaceObject = require("node:zlib");
+;// CONCATENATED MODULE: external "node:stream"
+const external_node_stream_namespaceObject = require("node:stream");
+;// CONCATENATED MODULE: external "node:buffer"
+const external_node_buffer_namespaceObject = require("node:buffer");
+;// CONCATENATED MODULE: ./node_modules/data-uri-to-buffer/dist/index.js
+/**
+ * Returns a `Buffer` instance from the given data URI `uri`.
+ *
+ * @param {String} uri Data URI to turn into a Buffer instance
+ * @returns {Buffer} Buffer instance from Data URI
+ * @api public
+ */
+function dataUriToBuffer(uri) {
+    if (!/^data:/i.test(uri)) {
+        throw new TypeError('`uri` does not appear to be a Data URI (must begin with "data:")');
+    }
+    // strip newlines
+    uri = uri.replace(/\r?\n/g, '');
+    // split the URI up into the "metadata" and the "data" portions
+    const firstComma = uri.indexOf(',');
+    if (firstComma === -1 || firstComma <= 4) {
+        throw new TypeError('malformed data: URI');
+    }
+    // remove the "data:" scheme and parse the metadata
+    const meta = uri.substring(5, firstComma).split(';');
+    let charset = '';
+    let base64 = false;
+    const type = meta[0] || 'text/plain';
+    let typeFull = type;
+    for (let i = 1; i < meta.length; i++) {
+        if (meta[i] === 'base64') {
+            base64 = true;
+        }
+        else {
+            typeFull += `;${meta[i]}`;
+            if (meta[i].indexOf('charset=') === 0) {
+                charset = meta[i].substring(8);
+            }
+        }
+    }
+    // defaults to US-ASCII only if type is not provided
+    if (!meta[0] && !charset.length) {
+        typeFull += ';charset=US-ASCII';
+        charset = 'US-ASCII';
+    }
+    // get the encoded data portion and decode URI-encoded chars
+    const encoding = base64 ? 'base64' : 'ascii';
+    const data = unescape(uri.substring(firstComma + 1));
+    const buffer = Buffer.from(data, encoding);
+    // set `.type` and `.typeFull` properties to MIME type
+    buffer.type = type;
+    buffer.typeFull = typeFull;
+    // set the `.charset` property
+    buffer.charset = charset;
+    return buffer;
+}
+/* harmony default export */ const dist = (dataUriToBuffer);
+//# sourceMappingURL=index.js.map
+// EXTERNAL MODULE: external "node:util"
+var external_node_util_ = __nccwpck_require__(7261);
+// EXTERNAL MODULE: ./node_modules/fetch-blob/index.js
+var fetch_blob = __nccwpck_require__(2070);
+// EXTERNAL MODULE: ./node_modules/formdata-polyfill/esm.min.js
+var esm_min = __nccwpck_require__(6794);
+;// CONCATENATED MODULE: ./node_modules/node-fetch/src/errors/base.js
+class FetchBaseError extends Error {
+	constructor(message, type) {
+		super(message);
+		// Hide custom error implementation details from end-users
+		Error.captureStackTrace(this, this.constructor);
+
+		this.type = type;
+	}
+
+	get name() {
+		return this.constructor.name;
+	}
+
+	get [Symbol.toStringTag]() {
+		return this.constructor.name;
+	}
+}
+
+;// CONCATENATED MODULE: ./node_modules/node-fetch/src/errors/fetch-error.js
+
+
+
+/**
+ * @typedef {{ address?: string, code: string, dest?: string, errno: number, info?: object, message: string, path?: string, port?: number, syscall: string}} SystemError
+*/
+
+/**
+ * FetchError interface for operational errors
+ */
+class FetchError extends FetchBaseError {
+	/**
+	 * @param  {string} message -      Error message for human
+	 * @param  {string} [type] -        Error type for machine
+	 * @param  {SystemError} [systemError] - For Node.js system error
+	 */
+	constructor(message, type, systemError) {
+		super(message, type);
+		// When err.type is `system`, err.erroredSysCall contains system error and err.code contains system error code
+		if (systemError) {
+			// eslint-disable-next-line no-multi-assign
+			this.code = this.errno = systemError.code;
+			this.erroredSysCall = systemError.syscall;
+		}
+	}
+}
+
+;// CONCATENATED MODULE: ./node_modules/node-fetch/src/utils/is.js
+/**
+ * Is.js
+ *
+ * Object type checks.
+ */
+
+const NAME = Symbol.toStringTag;
+
+/**
+ * Check if `obj` is a URLSearchParams object
+ * ref: https://github.com/node-fetch/node-fetch/issues/296#issuecomment-307598143
+ * @param {*} object - Object to check for
+ * @return {boolean}
+ */
+const isURLSearchParameters = object => {
+	return (
+		typeof object === 'object' &&
+		typeof object.append === 'function' &&
+		typeof object.delete === 'function' &&
+		typeof object.get === 'function' &&
+		typeof object.getAll === 'function' &&
+		typeof object.has === 'function' &&
+		typeof object.set === 'function' &&
+		typeof object.sort === 'function' &&
+		object[NAME] === 'URLSearchParams'
+	);
+};
+
+/**
+ * Check if `object` is a W3C `Blob` object (which `File` inherits from)
+ * @param {*} object - Object to check for
+ * @return {boolean}
+ */
+const isBlob = object => {
+	return (
+		object &&
+		typeof object === 'object' &&
+		typeof object.arrayBuffer === 'function' &&
+		typeof object.type === 'string' &&
+		typeof object.stream === 'function' &&
+		typeof object.constructor === 'function' &&
+		/^(Blob|File)$/.test(object[NAME])
+	);
+};
+
+/**
+ * Check if `obj` is an instance of AbortSignal.
+ * @param {*} object - Object to check for
+ * @return {boolean}
+ */
+const isAbortSignal = object => {
+	return (
+		typeof object === 'object' && (
+			object[NAME] === 'AbortSignal' ||
+			object[NAME] === 'EventTarget'
+		)
+	);
+};
+
+/**
+ * isDomainOrSubdomain reports whether sub is a subdomain (or exact match) of
+ * the parent domain.
+ *
+ * Both domains must already be in canonical form.
+ * @param {string|URL} original
+ * @param {string|URL} destination
+ */
+const isDomainOrSubdomain = (destination, original) => {
+	const orig = new URL(original).hostname;
+	const dest = new URL(destination).hostname;
+
+	return orig === dest || orig.endsWith(`.${dest}`);
+};
+
+/**
+ * isSameProtocol reports whether the two provided URLs use the same protocol.
+ *
+ * Both domains must already be in canonical form.
+ * @param {string|URL} original
+ * @param {string|URL} destination
+ */
+const isSameProtocol = (destination, original) => {
+	const orig = new URL(original).protocol;
+	const dest = new URL(destination).protocol;
+
+	return orig === dest;
+};
+
+;// CONCATENATED MODULE: ./node_modules/node-fetch/src/body.js
+
+/**
+ * Body.js
+ *
+ * Body interface provides common methods for Request and Response
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+const pipeline = (0,external_node_util_.promisify)(external_node_stream_namespaceObject.pipeline);
+const INTERNALS = Symbol('Body internals');
+
+/**
+ * Body mixin
+ *
+ * Ref: https://fetch.spec.whatwg.org/#body
+ *
+ * @param   Stream  body  Readable stream
+ * @param   Object  opts  Response options
+ * @return  Void
+ */
+class Body {
+	constructor(body, {
+		size = 0
+	} = {}) {
+		let boundary = null;
+
+		if (body === null) {
+			// Body is undefined or null
+			body = null;
+		} else if (isURLSearchParameters(body)) {
+			// Body is a URLSearchParams
+			body = external_node_buffer_namespaceObject.Buffer.from(body.toString());
+		} else if (isBlob(body)) {
+			// Body is blob
+		} else if (external_node_buffer_namespaceObject.Buffer.isBuffer(body)) {
+			// Body is Buffer
+		} else if (external_node_util_.types.isAnyArrayBuffer(body)) {
+			// Body is ArrayBuffer
+			body = external_node_buffer_namespaceObject.Buffer.from(body);
+		} else if (ArrayBuffer.isView(body)) {
+			// Body is ArrayBufferView
+			body = external_node_buffer_namespaceObject.Buffer.from(body.buffer, body.byteOffset, body.byteLength);
+		} else if (body instanceof external_node_stream_namespaceObject) {
+			// Body is stream
+		} else if (body instanceof esm_min/* FormData */.Ct) {
+			// Body is FormData
+			body = (0,esm_min/* formDataToBlob */.au)(body);
+			boundary = body.type.split('=')[1];
+		} else {
+			// None of the above
+			// coerce to string then buffer
+			body = external_node_buffer_namespaceObject.Buffer.from(String(body));
+		}
+
+		let stream = body;
+
+		if (external_node_buffer_namespaceObject.Buffer.isBuffer(body)) {
+			stream = external_node_stream_namespaceObject.Readable.from(body);
+		} else if (isBlob(body)) {
+			stream = external_node_stream_namespaceObject.Readable.from(body.stream());
+		}
+
+		this[INTERNALS] = {
+			body,
+			stream,
+			boundary,
+			disturbed: false,
+			error: null
+		};
+		this.size = size;
+
+		if (body instanceof external_node_stream_namespaceObject) {
+			body.on('error', error_ => {
+				const error = error_ instanceof FetchBaseError ?
+					error_ :
+					new FetchError(`Invalid response body while trying to fetch ${this.url}: ${error_.message}`, 'system', error_);
+				this[INTERNALS].error = error;
+			});
+		}
+	}
+
+	get body() {
+		return this[INTERNALS].stream;
+	}
+
+	get bodyUsed() {
+		return this[INTERNALS].disturbed;
+	}
+
+	/**
+	 * Decode response as ArrayBuffer
+	 *
+	 * @return  Promise
+	 */
+	async arrayBuffer() {
+		const {buffer, byteOffset, byteLength} = await consumeBody(this);
+		return buffer.slice(byteOffset, byteOffset + byteLength);
+	}
+
+	async formData() {
+		const ct = this.headers.get('content-type');
+
+		if (ct.startsWith('application/x-www-form-urlencoded')) {
+			const formData = new esm_min/* FormData */.Ct();
+			const parameters = new URLSearchParams(await this.text());
+
+			for (const [name, value] of parameters) {
+				formData.append(name, value);
+			}
+
+			return formData;
+		}
+
+		const {toFormData} = await __nccwpck_require__.e(/* import() */ 680).then(__nccwpck_require__.bind(__nccwpck_require__, 7680));
+		return toFormData(this.body, ct);
+	}
+
+	/**
+	 * Return raw response as Blob
+	 *
+	 * @return Promise
+	 */
+	async blob() {
+		const ct = (this.headers && this.headers.get('content-type')) || (this[INTERNALS].body && this[INTERNALS].body.type) || '';
+		const buf = await this.arrayBuffer();
+
+		return new fetch_blob/* default */.Z([buf], {
+			type: ct
+		});
+	}
+
+	/**
+	 * Decode response as json
+	 *
+	 * @return  Promise
+	 */
+	async json() {
+		const text = await this.text();
+		return JSON.parse(text);
+	}
+
+	/**
+	 * Decode response as text
+	 *
+	 * @return  Promise
+	 */
+	async text() {
+		const buffer = await consumeBody(this);
+		return new TextDecoder().decode(buffer);
+	}
+
+	/**
+	 * Decode response as buffer (non-spec api)
+	 *
+	 * @return  Promise
+	 */
+	buffer() {
+		return consumeBody(this);
+	}
+}
+
+Body.prototype.buffer = (0,external_node_util_.deprecate)(Body.prototype.buffer, 'Please use \'response.arrayBuffer()\' instead of \'response.buffer()\'', 'node-fetch#buffer');
+
+// In browsers, all properties are enumerable.
+Object.defineProperties(Body.prototype, {
+	body: {enumerable: true},
+	bodyUsed: {enumerable: true},
+	arrayBuffer: {enumerable: true},
+	blob: {enumerable: true},
+	json: {enumerable: true},
+	text: {enumerable: true},
+	data: {get: (0,external_node_util_.deprecate)(() => {},
+		'data doesn\'t exist, use json(), text(), arrayBuffer(), or body instead',
+		'https://github.com/node-fetch/node-fetch/issues/1000 (response)')}
+});
+
+/**
+ * Consume and convert an entire Body to a Buffer.
+ *
+ * Ref: https://fetch.spec.whatwg.org/#concept-body-consume-body
+ *
+ * @return Promise
+ */
+async function consumeBody(data) {
+	if (data[INTERNALS].disturbed) {
+		throw new TypeError(`body used already for: ${data.url}`);
+	}
+
+	data[INTERNALS].disturbed = true;
+
+	if (data[INTERNALS].error) {
+		throw data[INTERNALS].error;
+	}
+
+	const {body} = data;
+
+	// Body is null
+	if (body === null) {
+		return external_node_buffer_namespaceObject.Buffer.alloc(0);
+	}
+
+	/* c8 ignore next 3 */
+	if (!(body instanceof external_node_stream_namespaceObject)) {
+		return external_node_buffer_namespaceObject.Buffer.alloc(0);
+	}
+
+	// Body is stream
+	// get ready to actually consume the body
+	const accum = [];
+	let accumBytes = 0;
+
+	try {
+		for await (const chunk of body) {
+			if (data.size > 0 && accumBytes + chunk.length > data.size) {
+				const error = new FetchError(`content size at ${data.url} over limit: ${data.size}`, 'max-size');
+				body.destroy(error);
+				throw error;
+			}
+
+			accumBytes += chunk.length;
+			accum.push(chunk);
+		}
+	} catch (error) {
+		const error_ = error instanceof FetchBaseError ? error : new FetchError(`Invalid response body while trying to fetch ${data.url}: ${error.message}`, 'system', error);
+		throw error_;
+	}
+
+	if (body.readableEnded === true || body._readableState.ended === true) {
+		try {
+			if (accum.every(c => typeof c === 'string')) {
+				return external_node_buffer_namespaceObject.Buffer.from(accum.join(''));
+			}
+
+			return external_node_buffer_namespaceObject.Buffer.concat(accum, accumBytes);
+		} catch (error) {
+			throw new FetchError(`Could not create Buffer from response body for ${data.url}: ${error.message}`, 'system', error);
+		}
+	} else {
+		throw new FetchError(`Premature close of server response while trying to fetch ${data.url}`);
+	}
+}
+
+/**
+ * Clone body given Res/Req instance
+ *
+ * @param   Mixed   instance       Response or Request instance
+ * @param   String  highWaterMark  highWaterMark for both PassThrough body streams
+ * @return  Mixed
+ */
+const clone = (instance, highWaterMark) => {
+	let p1;
+	let p2;
+	let {body} = instance[INTERNALS];
+
+	// Don't allow cloning a used body
+	if (instance.bodyUsed) {
+		throw new Error('cannot clone body after it is used');
+	}
+
+	// Check that body is a stream and not form-data object
+	// note: we can't clone the form-data object without having it as a dependency
+	if ((body instanceof external_node_stream_namespaceObject) && (typeof body.getBoundary !== 'function')) {
+		// Tee instance body
+		p1 = new external_node_stream_namespaceObject.PassThrough({highWaterMark});
+		p2 = new external_node_stream_namespaceObject.PassThrough({highWaterMark});
+		body.pipe(p1);
+		body.pipe(p2);
+		// Set instance body to teed body and return the other teed body
+		instance[INTERNALS].stream = p1;
+		body = p2;
+	}
+
+	return body;
+};
+
+const getNonSpecFormDataBoundary = (0,external_node_util_.deprecate)(
+	body => body.getBoundary(),
+	'form-data doesn\'t follow the spec and requires special treatment. Use alternative package',
+	'https://github.com/node-fetch/node-fetch/issues/1167'
+);
+
+/**
+ * Performs the operation "extract a `Content-Type` value from |object|" as
+ * specified in the specification:
+ * https://fetch.spec.whatwg.org/#concept-bodyinit-extract
+ *
+ * This function assumes that instance.body is present.
+ *
+ * @param {any} body Any options.body input
+ * @returns {string | null}
+ */
+const extractContentType = (body, request) => {
+	// Body is null or undefined
+	if (body === null) {
+		return null;
+	}
+
+	// Body is string
+	if (typeof body === 'string') {
+		return 'text/plain;charset=UTF-8';
+	}
+
+	// Body is a URLSearchParams
+	if (isURLSearchParameters(body)) {
+		return 'application/x-www-form-urlencoded;charset=UTF-8';
+	}
+
+	// Body is blob
+	if (isBlob(body)) {
+		return body.type || null;
+	}
+
+	// Body is a Buffer (Buffer, ArrayBuffer or ArrayBufferView)
+	if (external_node_buffer_namespaceObject.Buffer.isBuffer(body) || external_node_util_.types.isAnyArrayBuffer(body) || ArrayBuffer.isView(body)) {
+		return null;
+	}
+
+	if (body instanceof esm_min/* FormData */.Ct) {
+		return `multipart/form-data; boundary=${request[INTERNALS].boundary}`;
+	}
+
+	// Detect form data input from form-data module
+	if (body && typeof body.getBoundary === 'function') {
+		return `multipart/form-data;boundary=${getNonSpecFormDataBoundary(body)}`;
+	}
+
+	// Body is stream - can't really do much about this
+	if (body instanceof external_node_stream_namespaceObject) {
+		return null;
+	}
+
+	// Body constructor defaults other things to string
+	return 'text/plain;charset=UTF-8';
+};
+
+/**
+ * The Fetch Standard treats this as if "total bytes" is a property on the body.
+ * For us, we have to explicitly get it with a function.
+ *
+ * ref: https://fetch.spec.whatwg.org/#concept-body-total-bytes
+ *
+ * @param {any} obj.body Body object from the Body instance.
+ * @returns {number | null}
+ */
+const getTotalBytes = request => {
+	const {body} = request[INTERNALS];
+
+	// Body is null or undefined
+	if (body === null) {
+		return 0;
+	}
+
+	// Body is Blob
+	if (isBlob(body)) {
+		return body.size;
+	}
+
+	// Body is Buffer
+	if (external_node_buffer_namespaceObject.Buffer.isBuffer(body)) {
+		return body.length;
+	}
+
+	// Detect form data input from form-data module
+	if (body && typeof body.getLengthSync === 'function') {
+		return body.hasKnownLength && body.hasKnownLength() ? body.getLengthSync() : null;
+	}
+
+	// Body is stream
+	return null;
+};
+
+/**
+ * Write a Body to a Node.js WritableStream (e.g. http.Request) object.
+ *
+ * @param {Stream.Writable} dest The stream to write to.
+ * @param obj.body Body object from the Body instance.
+ * @returns {Promise<void>}
+ */
+const writeToStream = async (dest, {body}) => {
+	if (body === null) {
+		// Body is null
+		dest.end();
+	} else {
+		// Body is stream
+		await pipeline(body, dest);
+	}
+};
+
+// EXTERNAL MODULE: ./node_modules/node-fetch/src/headers.js
+var src_headers = __nccwpck_require__(9687);
 ;// CONCATENATED MODULE: ./node_modules/node-fetch/src/utils/is-redirect.js
 const redirectStatus = new Set([301, 302, 303, 307, 308]);
 
@@ -8673,7 +8639,7 @@ class Response extends Body {
 		// eslint-disable-next-line no-eq-null, eqeqeq, no-negated-condition
 		const status = options.status != null ? options.status : 200;
 
-		const headers = new Headers(options.headers);
+		const headers = new src_headers/* default */.Z(options.headers);
 
 		if (body !== null && !headers.has('Content-Type')) {
 			const contentType = extractContentType(body, this);
@@ -9176,7 +9142,7 @@ const isRequest = object => {
 	);
 };
 
-const doBadDataWarn = (0,external_node_util_namespaceObject.deprecate)(() => {},
+const doBadDataWarn = (0,external_node_util_.deprecate)(() => {},
 	'.data is not a valid RequestInit property, use .body instead',
 	'https://github.com/node-fetch/node-fetch/issues/1000 (request)');
 
@@ -9230,7 +9196,7 @@ class Request extends Body {
 			size: init.size || input.size || 0
 		});
 
-		const headers = new Headers(init.headers || input.headers || {});
+		const headers = new src_headers/* default */.Z(init.headers || input.headers || {});
 
 		if (inputBody !== null && !headers.has('Content-Type')) {
 			const contentType = extractContentType(inputBody, this);
@@ -9370,7 +9336,7 @@ Object.defineProperties(Request.prototype, {
  */
 const getNodeRequestOptions = request => {
 	const {parsedURL} = request[request_INTERNALS];
-	const headers = new Headers(request[request_INTERNALS].headers);
+	const headers = new src_headers/* default */.Z(request[request_INTERNALS].headers);
 
 	// Fetch step 1.3
 	if (!headers.has('Accept')) {
@@ -9533,7 +9499,7 @@ async function fetch(url, options_) {
 		}
 
 		// Wrap http.request into fetch
-		const send = (parsedURL.protocol === 'https:' ? external_node_https_namespaceObject : external_node_http_namespaceObject).request;
+		const send = (parsedURL.protocol === 'https:' ? external_node_https_namespaceObject : external_node_http_).request;
 		const {signal} = request;
 		let response = null;
 
@@ -9608,7 +9574,7 @@ async function fetch(url, options_) {
 
 		request_.on('response', response_ => {
 			request_.setTimeout(0);
-			const headers = fromRawHeaders(response_.rawHeaders);
+			const headers = (0,src_headers/* fromRawHeaders */.x)(response_.rawHeaders);
 
 			// HTTP fetch step 5
 			if (isRedirect(response_.statusCode)) {
@@ -9655,7 +9621,7 @@ async function fetch(url, options_) {
 						// HTTP-redirect fetch step 6 (counter increment)
 						// Create a new Request object.
 						const requestOptions = {
-							headers: new Headers(request.headers),
+							headers: new src_headers/* default */.Z(request.headers),
 							follow: request.follow,
 							counter: request.counter + 1,
 							agent: request.agent,
@@ -9887,52 +9853,234 @@ function fixResponseChunkedTransferBadEnding(request, errorCallback) {
 	});
 }
 
-;// CONCATENATED MODULE: ./index.js
 
+/***/ })
 
-
-try {
-  const token = core.getInput("token");
-
-  if (!token) {
-    core.setFailed("NO TOKEN GIVEN");
-  }
-
-  const repo = process.env.GITHUB_REPOSITORY;
-
-  const pullRequestNumber = +process.env.GITHUB_REF_NAME.split("/")[0];
-  if (!pullRequestNumber) {
-    core.setFailed("UNABLE TO GET PR NUMBER");
-  }
-
-  if (
-    process.env.GITHUB_REF_TYPE !== "branch" ||
-    process.env.GITHUB_EVENT_NAME !== "pull_request"
-  ) {
-    core.setFailed("THIS ACTION CAN ONLY BE TRIGGERED ON A PULL REQUEST");
-  }
-
-  const headers = new Headers({
-    Accept: "application/vnd.github+json",
-    Authorization: `token ${token}`,
-  });
-  const opts = {
-    method: "GET",
-    headers: headers,
-  };
-
-  fetch(
-    `https://api.github.com/repos/${repo}/pulls/${pullRequestNumber}`,
-    opts
-  ).then((response) => {
-    console.log("RESPONSE", response);
-  });
-} catch (error) {
-  core.setFailed(error.message);
-}
-
-})();
-
-module.exports = __webpack_exports__;
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __nccwpck_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		var threw = true;
+/******/ 		try {
+/******/ 			__webpack_modules__[moduleId].call(module.exports, module, module.exports, __nccwpck_require__);
+/******/ 			threw = false;
+/******/ 		} finally {
+/******/ 			if(threw) delete __webpack_module_cache__[moduleId];
+/******/ 		}
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__nccwpck_require__.m = __webpack_modules__;
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/async module */
+/******/ 	(() => {
+/******/ 		var webpackThen = typeof Symbol === "function" ? Symbol("webpack then") : "__webpack_then__";
+/******/ 		var webpackExports = typeof Symbol === "function" ? Symbol("webpack exports") : "__webpack_exports__";
+/******/ 		var completeQueue = (queue) => {
+/******/ 			if(queue) {
+/******/ 				queue.forEach((fn) => (fn.r--));
+/******/ 				queue.forEach((fn) => (fn.r-- ? fn.r++ : fn()));
+/******/ 			}
+/******/ 		}
+/******/ 		var completeFunction = (fn) => (!--fn.r && fn());
+/******/ 		var queueFunction = (queue, fn) => (queue ? queue.push(fn) : completeFunction(fn));
+/******/ 		var wrapDeps = (deps) => (deps.map((dep) => {
+/******/ 			if(dep !== null && typeof dep === "object") {
+/******/ 				if(dep[webpackThen]) return dep;
+/******/ 				if(dep.then) {
+/******/ 					var queue = [];
+/******/ 					dep.then((r) => {
+/******/ 						obj[webpackExports] = r;
+/******/ 						completeQueue(queue);
+/******/ 						queue = 0;
+/******/ 					});
+/******/ 					var obj = {};
+/******/ 												obj[webpackThen] = (fn, reject) => (queueFunction(queue, fn), dep['catch'](reject));
+/******/ 					return obj;
+/******/ 				}
+/******/ 			}
+/******/ 			var ret = {};
+/******/ 								ret[webpackThen] = (fn) => (completeFunction(fn));
+/******/ 								ret[webpackExports] = dep;
+/******/ 								return ret;
+/******/ 		}));
+/******/ 		__nccwpck_require__.a = (module, body, hasAwait) => {
+/******/ 			var queue = hasAwait && [];
+/******/ 			var exports = module.exports;
+/******/ 			var currentDeps;
+/******/ 			var outerResolve;
+/******/ 			var reject;
+/******/ 			var isEvaluating = true;
+/******/ 			var nested = false;
+/******/ 			var whenAll = (deps, onResolve, onReject) => {
+/******/ 				if (nested) return;
+/******/ 				nested = true;
+/******/ 				onResolve.r += deps.length;
+/******/ 				deps.map((dep, i) => (dep[webpackThen](onResolve, onReject)));
+/******/ 				nested = false;
+/******/ 			};
+/******/ 			var promise = new Promise((resolve, rej) => {
+/******/ 				reject = rej;
+/******/ 				outerResolve = () => (resolve(exports), completeQueue(queue), queue = 0);
+/******/ 			});
+/******/ 			promise[webpackExports] = exports;
+/******/ 			promise[webpackThen] = (fn, rejectFn) => {
+/******/ 				if (isEvaluating) { return completeFunction(fn); }
+/******/ 				if (currentDeps) whenAll(currentDeps, fn, rejectFn);
+/******/ 				queueFunction(queue, fn);
+/******/ 				promise['catch'](rejectFn);
+/******/ 			};
+/******/ 			module.exports = promise;
+/******/ 			body((deps) => {
+/******/ 				if(!deps) return outerResolve();
+/******/ 				currentDeps = wrapDeps(deps);
+/******/ 				var fn, result;
+/******/ 				var promise = new Promise((resolve, reject) => {
+/******/ 					fn = () => (resolve(result = currentDeps.map((d) => (d[webpackExports]))));
+/******/ 					fn.r = 0;
+/******/ 					whenAll(currentDeps, fn, reject);
+/******/ 				});
+/******/ 				return fn.r ? promise : result;
+/******/ 			}).then(outerResolve, reject);
+/******/ 			isEvaluating = false;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__nccwpck_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__nccwpck_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__nccwpck_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/ensure chunk */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.f = {};
+/******/ 		// This file contains only the entry chunk.
+/******/ 		// The chunk loading function for additional chunks
+/******/ 		__nccwpck_require__.e = (chunkId) => {
+/******/ 			return Promise.all(Object.keys(__nccwpck_require__.f).reduce((promises, key) => {
+/******/ 				__nccwpck_require__.f[key](chunkId, promises);
+/******/ 				return promises;
+/******/ 			}, []));
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/get javascript chunk filename */
+/******/ 	(() => {
+/******/ 		// This function allow to reference async chunks
+/******/ 		__nccwpck_require__.u = (chunkId) => {
+/******/ 			// return url for filenames based on template
+/******/ 			return "" + chunkId + ".index.js";
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__nccwpck_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat */
+/******/ 	
+/******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
+/******/ 	
+/******/ 	/* webpack/runtime/require chunk loading */
+/******/ 	(() => {
+/******/ 		// no baseURI
+/******/ 		
+/******/ 		// object to store loaded chunks
+/******/ 		// "1" means "loaded", otherwise not loaded yet
+/******/ 		var installedChunks = {
+/******/ 			179: 1
+/******/ 		};
+/******/ 		
+/******/ 		// no on chunks loaded
+/******/ 		
+/******/ 		var installChunk = (chunk) => {
+/******/ 			var moreModules = chunk.modules, chunkIds = chunk.ids, runtime = chunk.runtime;
+/******/ 			for(var moduleId in moreModules) {
+/******/ 				if(__nccwpck_require__.o(moreModules, moduleId)) {
+/******/ 					__nccwpck_require__.m[moduleId] = moreModules[moduleId];
+/******/ 				}
+/******/ 			}
+/******/ 			if(runtime) runtime(__nccwpck_require__);
+/******/ 			for(var i = 0; i < chunkIds.length; i++)
+/******/ 				installedChunks[chunkIds[i]] = 1;
+/******/ 		
+/******/ 		};
+/******/ 		
+/******/ 		// require() chunk loading for javascript
+/******/ 		__nccwpck_require__.f.require = (chunkId, promises) => {
+/******/ 			// "1" is the signal for "already loaded"
+/******/ 			if(!installedChunks[chunkId]) {
+/******/ 				if(true) { // all chunks have JS
+/******/ 					installChunk(require("./" + __nccwpck_require__.u(chunkId)));
+/******/ 				} else installedChunks[chunkId] = 1;
+/******/ 			}
+/******/ 		};
+/******/ 		
+/******/ 		// no external install chunk
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module used 'module' so it can't be inlined
+/******/ 	var __webpack_exports__ = __nccwpck_require__(3371);
+/******/ 	module.exports = __webpack_exports__;
+/******/ 	
 /******/ })()
 ;
