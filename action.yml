@@ -1,0 +1,7 @@
+name: "Squashed Commits"
+description: "Checks a pull request only has 1 commit"
+author: "Elsan"
+inputs:
+runs:
+  using: "node16"
+  main: "index.js"
