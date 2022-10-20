@@ -28,7 +28,7 @@ try {
     Authorization: `token ${token}`,
   });
   const opts = {
-    method: method,
+    method: "GET",
     headers: headers,
   };
 
