@@ -15,19 +15,7 @@ __nccwpck_require__.r(__webpack_exports__);
 
 
 try {
-  const token = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput("token");
-
-  if (!token) {
-    throw "NO TOKEN GIVEN";
-  }
-
-  const repo = process.env.GITHUB_REPOSITORY;
-
-  const pullRequestNumber = +process.env.GITHUB_REF_NAME.split("/")[0];
-  if (!pullRequestNumber) {
-    throw "UNABLE TO GET PR NUMBER";
-  }
-
+  console.log("Checking execution context...");
   if (
     process.env.GITHUB_REF_TYPE !== "branch" ||
     process.env.GITHUB_EVENT_NAME !== "pull_request"
@@ -35,6 +23,19 @@ try {
     throw "THIS ACTION CAN ONLY BE TRIGGERED ON A PULL REQUEST";
   }
 
+  console.log("Getting token from inputs...");
+  const token = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput("token");
+  if (!token) {
+    throw "NO TOKEN GIVEN";
+  }
+
+  console.log("Getting PR number...");
+  const pullRequestNumber = +process.env.GITHUB_REF_NAME.split("/")[0];
+  if (!pullRequestNumber) {
+    throw "UNABLE TO GET PR NUMBER";
+  }
+
+  console.log("Getting PR info from repo...");
   const headers = new node_fetch__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z({
     Accept: "application/vnd.github+json",
     Authorization: `token ${token}`,
@@ -45,7 +46,7 @@ try {
   };
 
   const response = await (0,node_fetch__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .ZP)(
-    `https://api.github.com/repos/${repo}/pulls/${pullRequestNumber}`,
+    `https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/pulls/${pullRequestNumber}`,
     opts
   ).catch((e) => {
     throw e;
@@ -55,10 +56,14 @@ try {
     throw "Response parsing error";
   });
 
+  console.log("Parsing commits count from repo infos...");
   const commitsCount = +json.commits;
 
   if (commitsCount > 1) {
+    console.log("Too many commits");
     throw `Pull request needs to be squashed : ${commitsCount} commits found.`;
+  } else {
+    console.log("PR commits squashed.");
   }
 } catch (error) {
   _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(error.message);

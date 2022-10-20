@@ -2,19 +2,7 @@ import * as core from "@actions/core";
 import fetch, { Headers } from "node-fetch";
 
 try {
-  const token = core.getInput("token");
-
-  if (!token) {
-    throw "NO TOKEN GIVEN";
-  }
-
-  const repo = process.env.GITHUB_REPOSITORY;
-
-  const pullRequestNumber = +process.env.GITHUB_REF_NAME.split("/")[0];
-  if (!pullRequestNumber) {
-    throw "UNABLE TO GET PR NUMBER";
-  }
-
+  console.log("Checking execution context...");
   if (
     process.env.GITHUB_REF_TYPE !== "branch" ||
     process.env.GITHUB_EVENT_NAME !== "pull_request"
@@ -22,6 +10,19 @@ try {
     throw "THIS ACTION CAN ONLY BE TRIGGERED ON A PULL REQUEST";
   }
 
+  console.log("Getting token from inputs...");
+  const token = core.getInput("token");
+  if (!token) {
+    throw "NO TOKEN GIVEN";
+  }
+
+  console.log("Getting PR number...");
+  const pullRequestNumber = +process.env.GITHUB_REF_NAME.split("/")[0];
+  if (!pullRequestNumber) {
+    throw "UNABLE TO GET PR NUMBER";
+  }
+
+  console.log("Getting PR info from repo...");
   const headers = new Headers({
     Accept: "application/vnd.github+json",
     Authorization: `token ${token}`,
@@ -32,7 +33,7 @@ try {
   };
 
   const response = await fetch(
-    `https://api.github.com/repos/${repo}/pulls/${pullRequestNumber}`,
+    `https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/pulls/${pullRequestNumber}`,
     opts
   ).catch((e) => {
     throw e;
@@ -42,10 +43,14 @@ try {
     throw "Response parsing error";
   });
 
+  console.log("Parsing commits count from repo infos...");
   const commitsCount = +json.commits;
 
   if (commitsCount > 1) {
+    console.log("Too many commits");
     throw `Pull request needs to be squashed : ${commitsCount} commits found.`;
+  } else {
+    console.log("PR commits squashed.");
   }
 } catch (error) {
   core.setFailed(error.message);
