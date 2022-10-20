@@ -7651,18 +7651,6 @@ return new B(c,{type:"multipart/form-data; boundary="+b})}
 /******/ 	__nccwpck_require__.m = __webpack_modules__;
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nccwpck_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__nccwpck_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -7769,7 +7757,6 @@ __nccwpck_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(5707);
-var core_default = /*#__PURE__*/__nccwpck_require__.n(core);
 ;// CONCATENATED MODULE: external "node:http"
 const external_node_http_namespaceObject = require("node:http");
 ;// CONCATENATED MODULE: external "node:https"
@@ -9903,30 +9890,29 @@ function fixResponseChunkedTransferBadEnding(request, errorCallback) {
 ;// CONCATENATED MODULE: ./index.js
 
 
-// const github = require("@actions/github");
 
 try {
-  const token = core_default().getInput("token");
+  const token = core.getInput("token");
 
   if (!token) {
-    core_default().setFailed("NO TOKEN GIVEN");
+    core.setFailed("NO TOKEN GIVEN");
   }
 
   const repo = process.env.GITHUB_REPOSITORY;
 
   const pullRequestNumber = +process.env.GITHUB_REF_NAME.split("/")[0];
   if (!pullRequestNumber) {
-    core_default().setFailed("UNABLE TO GET PR NUMBER");
+    core.setFailed("UNABLE TO GET PR NUMBER");
   }
 
   if (
     process.env.GITHUB_REF_TYPE !== "branch" ||
     process.env.GITHUB_EVENT_NAME !== "pull_request"
   ) {
-    core_default().setFailed("THIS ACTION CAN ONLY BE TRIGGERED ON A PULL REQUEST");
+    core.setFailed("THIS ACTION CAN ONLY BE TRIGGERED ON A PULL REQUEST");
   }
 
-  const headers = new Headers({
+  const headers = new fetch.Headers({
     Accept: "application/vnd.github+json",
     Authorization: `token ${token}`,
   });
@@ -9942,7 +9928,7 @@ try {
     console.log("RESPONSE", response);
   });
 } catch (error) {
-  core_default().setFailed(error.message);
+  core.setFailed(error.message);
 }
 
 })();

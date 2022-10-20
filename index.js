@@ -1,6 +1,5 @@
-import core from "@actions/core";
+import * as core from "@actions/core";
 import fetch, { Headers } from "node-fetch";
-// const github = require("@actions/github");
 
 try {
   const token = core.getInput("token");
@@ -23,7 +22,7 @@ try {
     core.setFailed("THIS ACTION CAN ONLY BE TRIGGERED ON A PULL REQUEST");
   }
 
-  const headers = new Headers({
+  const headers = new fetch.Headers({
     Accept: "application/vnd.github+json",
     Authorization: `token ${token}`,
   });
