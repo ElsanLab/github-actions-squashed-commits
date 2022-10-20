@@ -5,5 +5,6 @@ try {
   const token = core.getInput("token");
   console.log("OH HELLO :D");
 } catch (error) {
+  console.log("TRY CATCH ERROR");
   core.setFailed(error.message);
 }
