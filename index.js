@@ -22,7 +22,7 @@ try {
     core.setFailed("THIS ACTION CAN ONLY BE TRIGGERED ON A PULL REQUEST");
   }
 
-  const headers = new fetch.Headers({
+  const headers = new Headers({
     Accept: "application/vnd.github+json",
     Authorization: `token ${token}`,
   });
