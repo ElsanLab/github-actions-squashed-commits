@@ -9689,9 +9689,41 @@ const github = __nccwpck_require__(2771);
 
 try {
   const token = core.getInput("token");
-  console.log("OH HELLO :D");
+
+  if (!token) {
+    core.setFailed("NO TOKEN GIVEN");
+  }
+
+  const repo = github.getEnv("GITHUB_REPOSITORY");
+
+  const pullRequestNumber = +github.getEnv("GITHUB_REF_NAME").split("/")[0];
+  if (!pullRequestNumber) {
+    core.setFailed("UNABLE TO GET PR NUMBER");
+  }
+
+  if (
+    github.getEnv("GITHUB_REF_TYPE") !== "branch" ||
+    github.getEnv("GITHUB_EVENT_NAME") !== "pull_request"
+  ) {
+    core.setFailed("THIS ACTION CAN ONLY BE TRIGGERED ON A PULL REQUEST");
+  }
+
+  const headers = new Headers({
+    Accept: "application/vnd.github+json",
+    Authorization: `token ${token}`,
+  });
+  const opts = {
+    method: method,
+    headers: headers,
+  };
+
+  fetch(
+    `https://api.github.com/repos/${repo}/pulls/${pullRequestNumber}`,
+    opts
+  ).then((response) => {
+    console.log("RESPONSE", response);
+  });
 } catch (error) {
-  console.log("TRY CATCH ERROR");
   core.setFailed(error.message);
 }
 
