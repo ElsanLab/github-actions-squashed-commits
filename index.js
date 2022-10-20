@@ -8,6 +8,8 @@ try {
     core.setFailed("NO TOKEN GIVEN");
   }
 
+  console.log("REPO", process.env.GITHUB_REPOSITORY);
+
   const repo = github.getEnv("GITHUB_REPOSITORY");
 
   const pullRequestNumber = +github.getEnv("GITHUB_REF_NAME").split("/")[0];
