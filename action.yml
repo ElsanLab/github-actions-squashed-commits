@@ -1,10 +1,6 @@
 name: "Squashed Commits"
 description: "Checks a pull request only has 1 commit"
 author: "Elsan"
-inputs:
-  token:
-    required: false
-    description: "Defines the token to use to execute the git API requests with, uses `env.GITHUB_TOKEN` by default"
 runs:
   using: "node16"
   main: "index.js"
