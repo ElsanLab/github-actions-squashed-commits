@@ -10,35 +10,35 @@ try {
 
   console.log("REPO", process.env.GITHUB_REPOSITORY);
 
-  const repo = github.getEnv("GITHUB_REPOSITORY");
+  //   const repo = github.getEnv("GITHUB_REPOSITORY");
 
-  const pullRequestNumber = +github.getEnv("GITHUB_REF_NAME").split("/")[0];
-  if (!pullRequestNumber) {
-    core.setFailed("UNABLE TO GET PR NUMBER");
-  }
+  //   const pullRequestNumber = +github.getEnv("GITHUB_REF_NAME").split("/")[0];
+  //   if (!pullRequestNumber) {
+  //     core.setFailed("UNABLE TO GET PR NUMBER");
+  //   }
 
-  if (
-    github.getEnv("GITHUB_REF_TYPE") !== "branch" ||
-    github.getEnv("GITHUB_EVENT_NAME") !== "pull_request"
-  ) {
-    core.setFailed("THIS ACTION CAN ONLY BE TRIGGERED ON A PULL REQUEST");
-  }
+  //   if (
+  //     github.getEnv("GITHUB_REF_TYPE") !== "branch" ||
+  //     github.getEnv("GITHUB_EVENT_NAME") !== "pull_request"
+  //   ) {
+  //     core.setFailed("THIS ACTION CAN ONLY BE TRIGGERED ON A PULL REQUEST");
+  //   }
 
-  const headers = new Headers({
-    Accept: "application/vnd.github+json",
-    Authorization: `token ${token}`,
-  });
-  const opts = {
-    method: method,
-    headers: headers,
-  };
+  //   const headers = new Headers({
+  //     Accept: "application/vnd.github+json",
+  //     Authorization: `token ${token}`,
+  //   });
+  //   const opts = {
+  //     method: method,
+  //     headers: headers,
+  //   };
 
-  fetch(
-    `https://api.github.com/repos/${repo}/pulls/${pullRequestNumber}`,
-    opts
-  ).then((response) => {
-    console.log("RESPONSE", response);
-  });
+  //   fetch(
+  //     `https://api.github.com/repos/${repo}/pulls/${pullRequestNumber}`,
+  //     opts
+  //   ).then((response) => {
+  //     console.log("RESPONSE", response);
+  //   });
 } catch (error) {
   core.setFailed(error.message);
 }
