@@ -7,4 +7,4 @@ inputs:
     description: "Defines the token to use to execute the git API requests with, uses `env.GITHUB_TOKEN` by default"
 runs:
   using: "node16"
-  main: "index.js"
+  main: "dist/index.js"
